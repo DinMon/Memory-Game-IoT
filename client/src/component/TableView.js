@@ -25,7 +25,7 @@ const TableView = ({players}) => {
 															<tr key={i}>
 																	<td>{p.id}</td>
 																	<td>{p.level}</td>
-																	<td>{p.attempts}</td>
+																	<td>{p.attempt}</td>
 															</tr>
 													)
 											})
