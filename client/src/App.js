@@ -8,7 +8,7 @@ class App extends Component {
 
   state ={
     players: [],
-    playMode: false, // in play mode display single row with user Id and level
+    playMode: true, // in play mode display single row with user Id and level
     singlePlayer: {
       status: "waiting",
       id: 1,
