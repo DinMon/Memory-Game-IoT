@@ -8,11 +8,12 @@ class App extends Component {
 
   state ={
     players: [],
-    playMode: true, // in play mode display single row with user Id and level
+    prevPlayMode: false,
+    playMode: false, // in play mode display single row with user Id and level
     singlePlayer: {
-      status: "waiting",
-      id: 1,
-      level: 2,
+      gameStatus: null,
+      id: null,
+      level: 1,
     }
   }
 
@@ -21,16 +22,43 @@ class App extends Component {
     ((setPlayers) =>{
       axios.get('/players')
       .then(function (response) {
-        console.log(response)
-        setPlayers(response.data.players)
+	console.log(response)
+	setPlayers(response.data.players)
       })
       .catch(function (error) {
-        console.log(error);
+	console.log(error);
       })
     })((players => this.setState({players: players})))
   }
 
+  componentWillUpdate(){
+    ((setSinglePlayer) =>{
+      axios.get('/game')
+      .then(function (response) {
+	console.log(response)
+	setSinglePlayer(response.data.playerId, response.data.level, response.data.isGameOn)
+      })
+      .catch(function (error) {
+	console.log(error);
+      })
+    })(((playerId, playerLevel, gameStatus) => this.setState({playMode:gameStatus ,singlePlayer: {gameStatus: "In-Play",id: playerId, level:playerLevel}})))
+
+/*
+    ((setPlayMode) =>{
+      axios.get('/status')
+      .then(function (response) {
+        console.log(response)
+        setPlayMode(response.data.isGameOn)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    })((gameStatus => this.setState({playMode: gameStatus})))
+*/
+  }
+
   render() {
+
     return (
       <div className="App">
         <header>
@@ -45,6 +73,7 @@ class App extends Component {
           (this.state.playMode)?(
             <SingleRow player={this.state.singlePlayer}/>
           ):(
+
             <TableView players={this.state.players}/>
           )
         }

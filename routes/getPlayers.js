@@ -7,13 +7,14 @@ var router = express.Router();
 
 const connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'MemoryGame'
+  user     : 'ugame',
+  password : 'password',
+  database : 'MemoryGame',
 })
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  gCache.clear()
   const player_query = 'CALL GET_PLAYERS()'
   connection.query(player_query, (err, playerResult) =>{
     if(err){

@@ -5,13 +5,13 @@ var router = express.Router();
 router.post('/', function(req, res, next) {
     console.log(req.body)
     const playerId = req.body.id
-    const level = req.body.level
+    const level = 1
 
-    console.log(playerId + " " + level + " " + gameStatus)
+    console.log(playerId + " " + level)
 
-    //use caching here.
     gCache.put('playerId', playerId)
     gCache.put('level', level)
+    gCache.put('gameStatus', true)
 
     res.send('yes')
 });

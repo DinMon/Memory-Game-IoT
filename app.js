@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var getPlayersRouter = require('./routes/getPlayers');
 var initRouter = require('./routes/initGame');
 var gameRouter = require('./routes/getGame');
+var levelRouter = require('./routes/setLevel');
+var statusRouter = require('./routes/gameStatus');
 
 var app = express();
 
@@ -28,6 +30,8 @@ app.use('/', indexRouter);
 app.use('/players', getPlayersRouter);
 app.use('/init', initRouter);
 app.use('/game', gameRouter);
+app.use('/level', levelRouter);
+app.use('/status', statusRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
